@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import './my.scss';
 
+import { useState } from 'react';
+
 const products = [
   { category: 'Fruits', price: '$1', stocked: true, name: 'Apple' },
   { category: 'Fruits', price: '$1', stocked: true, name: 'Dragonfruit' },
@@ -15,24 +17,34 @@ function ProductCategoryRow({ category }) {
   return <h3 className='stock-category'>{category}</h3>;
 }
 
-function ProductRow({ name, price, stocked }) {
+function ProductRow({ product }) {
   return (
     <div className='stock-detail'>
       <div className='stock-item'>
-        <div className={'detail-name' + (stocked ? '' : ' detail-lack')}>
-          {name}
+        <div
+          className={'detail-name' + (product.stocked ? '' : ' detail-lack')}
+        >
+          {product.name}
         </div>
-        <div className='detail-price'>{price}</div>
+        <div className='detail-price'>{product.price}</div>
       </div>
     </div>
   );
 }
 
-function ProductTable({ products }) {
+function ProductTable({ products, filterText, inStockOnly }) {
   const rows = [];
   let lastCategory = null;
 
   products.forEach((product) => {
+    if (product.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) {
+      return;
+    }
+
+    if (inStockOnly && !product.stocked) {
+      return;
+    }
+
     if (product.category !== lastCategory) {
       rows.push(
         <ProductCategoryRow
@@ -42,14 +54,7 @@ function ProductTable({ products }) {
       );
     }
 
-    rows.push(
-      <ProductRow
-        key={product.name}
-        name={product.name}
-        price={product.price}
-        stocked={product.stocked}
-      ></ProductRow>
-    );
+    rows.push(<ProductRow key={product.name} product={product}></ProductRow>);
     lastCategory = product.category;
   });
 
@@ -60,16 +65,68 @@ function ProductTable({ products }) {
   );
 }
 
-function SearchBar() {
+function SearchBar({
+  filterText,
+  inStockOnly,
+  onFilterTextChange,
+  onInStockOnlyChange,
+}) {
   return (
     <div className='search-bar'>
       <div className='from-group'>
-        <input type='text' placeholder='Search' />
+        <input
+          type='text'
+          placeholder='Search'
+          value={filterText}
+          onChange={(e) => {
+            onFilterTextChange(e.target.value);
+          }}
+        />
       </div>
       <div className='from-group'>
         <label>
-          <input type='checkbox' /> Only show products in stock
+          <input
+            type='checkbox'
+            checked={inStockOnly}
+            onChange={(e) => {
+              onInStockOnlyChange(e.target.checked);
+            }}
+          />{' '}
+          Only show products in stock
         </label>
+      </div>
+    </div>
+  );
+}
+
+function ThinkingPart() {
+  const [filterText, setFilterText] = useState('');
+  const [inStockOnly, setInStockOnly] = useState(false);
+
+  return (
+    <div className='thinking-part'>
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange={setFilterText}
+        onInStockOnlyChange={setInStockOnly}
+      ></SearchBar>
+
+      <div className='stock-grid'>
+        <div className='stock-header'>
+          <h3>Name</h3>
+          <h3>Price</h3>
+        </div>
+
+        <div>
+          <div className='stock-block'>
+            <ProductTable
+              products={products}
+              filterText={filterText}
+              inStockOnly={inStockOnly}
+            ></ProductTable>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -82,22 +139,7 @@ function App() {
         <img src={logo} className='App-logo' alt='logo' />
       </header>
 
-      <div className='thinking-part'>
-        <SearchBar></SearchBar>
-
-        <div className='stock-grid'>
-          <div className='stock-header'>
-            <h3>Name</h3>
-            <h3>Price</h3>
-          </div>
-
-          <div>
-            <div className='stock-block'>
-              <ProductTable products={products}></ProductTable>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ThinkingPart></ThinkingPart>
     </div>
   );
 }
