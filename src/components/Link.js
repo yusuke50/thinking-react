@@ -1,14 +1,37 @@
 function Link() {
   return (
-    <div className='link-container mr-10 my-auto'>
-      <ul className='flex'>
-        <li className='link-item mx-3'>Link</li>
-        <li className='link-item mx-3'>Link</li>
-        <li className='link-item mx-3'>Link</li>
-        <li className='link-item mx-3'>Link</li>
-        <li className='link-item mx-3'>Link</li>
-      </ul>
-    </div>
+    <ul className='flex'>
+      <li className='link-item active'>
+        <a href='#' className='nav-link'>
+          Link
+        </a>
+      </li>
+      <li className='link-item'>
+        <a href='#' className='nav-link'>
+          Link
+        </a>
+      </li>
+      <li className='link-item'>
+        <a href='#' className='nav-link'>
+          Link
+        </a>
+      </li>
+      <li className='link-item'>
+        <a href='#' className='nav-link'>
+          Link
+        </a>
+      </li>
+      <li className='link-item'>
+        <a href='#' className='nav-link'>
+          Link
+        </a>
+      </li>
+      <li className='link-item'>
+        <a href='#' className='nav-link'>
+          Link
+        </a>
+      </li>
+    </ul>
   );
 }
 
