@@ -6,7 +6,6 @@ import FlightsList from './Components/FlightsList';
 import PeopleCard from './Components/PeopleCard';
 
 function App() {
-  
 
   return (
     <>
