@@ -10,13 +10,13 @@ const Navigation = () => {
   };
 
   return (
-    <nav className='bg-blue-600 p-4 nav-bar'>
+    <nav className='p-4 nav-bar'>
       <div className='mx-auto flex justify-between items-center'>
         <Link to='/' className='text-write text-2xl font-bold'>
           <TicketsPlane size={48} color='#fff' />
         </Link>
 
-        <button className='md:hidden bg-blue-300 text-white focus:outline-none' onClick={toggleMenu}>
+        <button className='md:hidden focus:outline-none button button-menu' onClick={toggleMenu}>
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
@@ -29,13 +29,13 @@ const Navigation = () => {
             Flights
           </NavLink>
           <NavLink to='/story' onClick={toggleMenu}>
-            Travel Note
+            Travel Group
           </NavLink>
         </div>
 
         {/* mobile */}
         {isOpen && (
-          <div className='absolute top-16 left-0 right-0 bg-blue-600 md:hidden'>
+          <div className='absolute left-0 right-0  md:hidden menu-div'>
             <div className='flex flex-col items-center py-2'>
               <NavLink to='/' onClick={toggleMenu}>
                 Home
@@ -44,7 +44,7 @@ const Navigation = () => {
                 Flights
               </NavLink>
               <NavLink to='/story' onClick={toggleMenu}>
-              Travel Note
+                Travel Group
               </NavLink>
             </div>
           </div>

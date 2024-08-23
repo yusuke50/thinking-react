@@ -1,12 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './Navigation';
-import './App.css';
 import Home from './Components/Home';
 import FlightsList from './Components/FlightsList';
 import PeopleCard from './Components/PeopleCard';
 
 function App() {
-
   return (
     <>
       <Router>
