@@ -64,7 +64,7 @@ const FlightsList = () => {
   };
 
   return (
-    <div className='container  p-4'>
+    <div className='main-container  p-4'>
       <h1 className='text-3xl font-bold mb-4'>Flights Listing</h1>
 
       <input
